@@ -1,0 +1,118 @@
+test_case_no,ignore,description,environment,url,endpoint,http_method,header_params,response_status,request_curl,validation
+Case 1,,Check hydra parameters availability - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"exist name, exist email, exist birth_year, exist version
+exist address, exist address.city, exist address.country, exist address.post_code
+exist branch, exist branch.count, exist branch.private, exist branch.branch_codes
+exist branch.sub_branch, exist branch.sub_branch.count, exist branch.sub_branch.status
+exist data, exist data.location, exist data.list_name, exist data.last_updated, exist data.list"
+Case 2,,Check hydra parameters availability - inside list,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"exist data.list[], exist data.list[].branch_id, exist data.list[].branch_name, exist data.list[].status"
+Case 3,,::::: Should Fail ::::: Check hydra parameters availability - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"exist name,
+exist address,
+exist branch_non_existing
+exist branch.sub_branch_non_existing
+exist data"
+Case 4,,::::: Should Fail ::::: Check hydra parameters availability - inside list,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"exist data.list[].branch_id_non_existing, exist data.list[].branch_name_non_existing"
+Case 5,,Check hydra parameters data type - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"datatype name String
+datatype email String
+datatype birth_year Integer
+datatype version Integer
+datatype address Map
+datatype address.city String
+datatype address.country String
+datatype address.post_code Integer
+datatype branch Map
+datatype branch.count Integer
+datatype branch.private Boolean
+datatype branch.sub_branch Map
+datatype branch.sub_branch.count Integer
+datatype branch.sub_branch.status String
+datatype data Map
+datatype data.location String
+datatype data.list_name String
+datatype data.last_updated String
+datatype data.list List"
+Case 6,,Check hydra parameters data type - list and array of string,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"datatype data.list[].branch_id Integer
+datatype data.list[].branch_name String
+datatype data.list[].status String"
+Case 7,,::::: Should Fail ::::: Check hydra parameters data type - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"datatype name_non_existing String
+datatype branch.sub_branch.count_non_existing Integer"
+Case 8,,::::: Should Fail ::::: Check hydra parameters data type - list and array of string,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"datatype data.list List
+datatype data.list[].branch_id_non_existing Integer"
+Case 9,,Compare hydra v1 and v2 paramaters value - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,curl --location --request GET 'https://touhidion.github.io/mockapi/hydra_v1.json',"RESPONSE_LEFT name == RESPONSE_RIGHT name
+RESPONSE_LEFT email == RESPONSE_RIGHT email
+RESPONSE_LEFT birth_year == RESPONSE_RIGHT birthYear
+RESPONSE_LEFT address.city == RESPONSE_RIGHT address.city
+RESPONSE_LEFT address.country == RESPONSE_RIGHT address.country
+RESPONSE_LEFT address.post_code == RESPONSE_RIGHT address.postCode
+RESPONSE_LEFT branch.count == RESPONSE_RIGHT branch.count
+RESPONSE_LEFT branch.private == RESPONSE_RIGHT branch.private
+RESPONSE_LEFT branch.branch_codes == RESPONSE_RIGHT ranch.branchCodes
+RESPONSE_LEFT branch.sub_branch.count == RESPONSE_RIGHT branch.subBranch.count
+RESPONSE_LEFT branch.sub_branch.status == RESPONSE_RIGHT branch.subBranch.status
+RESPONSE_LEFT data.location == RESPONSE_RIGHT data.location
+RESPONSE_LEFT data.list_name == RESPONSE_RIGHT data.list_name
+RESPONSE_LEFT data.last_updated == RESPONSE_RIGHT data.lastUpdated"
+Case 10,,Compare hydra v1 and v2 paramaters value - inside list,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,curl --location --request GET 'https://touhidion.github.io/mockapi/hydra_v1.json',"RESPONSE_LEFT data.list[].branch_id == RESPONSE_RIGHT data.list[].branchId
+RESPONSE_LEFT data.list[].branch_name == RESPONSE_RIGHT data.list[].branchName
+RESPONSE_LEFT data.list[].status == RESPONSE_RIGHT data.list[].status"
+Case 11,,Compare hydra v1 and v2 paramaters value - map,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,curl --location --request GET 'https://touhidion.github.io/mockapi/hydra_v1.json',"RESPONSE_LEFT address == RESPONSE_RIGHT address
+RESPONSE_LEFT branch  == RESPONSE_RIGHT branch
+RESPONSE_LEFT data == RESPONSE_RIGHT data
+RESPONSE_LEFT data.list == RESPONSE_RIGHT data.list"
+Case 12,,::::: Should Fail ::::: Compare hydra v1 and v2 paramaters value - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,curl --location --request GET 'https://touhidion.github.io/mockapi/hydra_v1.json',RESPONSE_LEFT email_non_existing == RESPONSE_RIGHT email
+Case 13,,::::: Should Fail ::::: Compare hydra v1 and v2 paramaters value - inside list,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,curl --location --request GET 'https://touhidion.github.io/mockapi/hydra_v1.json',RESPONSE_LEFT data.list[].branch_id_non_existing == RESPONSE_RIGHT data.list[].branchId_non_existing
+Case 14,,::::: Should Fail ::::: Compare hydra v1 and v2 paramaters value - map,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,curl --location --request GET 'https://touhidion.github.io/mockapi/hydra_v1.json',RESPONSE_LEFT address == RESPONSE_RIGHT branch
+Case 15,,2. hydra parameter value check - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"name == ""hydra""
+version == 2
+address.post_code == 1212
+branch.sub_branch.count == 2
+data.location == ""Dhaka"""
+Case 16,,2. hydra parameter value check - inside list,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"data.list[0].branch_id == 10
+data.list[0].branch_name == ""hydra_10_Y""
+data.list[0].status == ""OPEN""
+data.list[1].branch_id == 11
+data.list[2].branch_name == ""hydra_12_X"""
+Case 17,,::::: Should Fail ::::: 2. hydra parameter value check - normal,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"name == ""hydra""
+data.location_non_existing == ""Dhaka"""
+Case 18,,::::: Should Fail ::::: 2. hydra parameter value check - inside list,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"data.list[0].branch_id == 10
+data.list[0].branch_name_non_existing == ""hydra_10_Y"""
+Case 19,,2. hydra parameter value check - && and ||,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"name == ""hydra"" && branch.sub_branch.count == 2
+name == ""hydra v2"" || version == 1"
+Case 20,,2. hydra parameter value check - < > <= >= !=,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"branch.count > 2 && branch.count < 10
+branch.sub_branch.count >= 2
+branch.sub_branch.count != 1"
+Case 21,,::::: Should Fail ::::: 2. hydra parameter value check - && and ||,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,name_non_existing == "hydra" && branch.sub_branch.count == 2
+Case 22,,::::: Should Fail ::::: 2. hydra parameter value check - < > <= >= !=,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,branch.count > 10
+Case 23,,3. hydra parameter value check - arithmetic operation,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,branch.count + branch.sub_branch.count * branch.sub_branch.count == 9
+Case 24,,::::: Should Fail ::::: 3. hydra parameter value check - arithmetic operation,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,branch.count + branch.sub_branch.count / branch.sub_branch.count == 9
+Case 25,,4. hydra list sort check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"Sort data.list by branch_id asc
+Sort data.list by status desc"
+Case 26,,::::: Should Fail ::::: 4. hydra list sort check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,Sort data.list by branch_name desc
+Case 27,,6. check regex in string validation ,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"MATCH name REGEX ""[a-zA-Z]+""
+MATCH address.post_code REGEX ""[0-9]{4}""
+MATCH email REGEX ""^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+"""
+Case 28,,::::: Should Fail ::::: 6. check regex in string validation ,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,MATCH address.post_code_non_existing REGEX "[0-9]{4}"
+Case 29,,::::: Should Fail ::::: 6. check regex in string validation ,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,MATCH address.post_code REGEX "[a-zA-Z]+"
+Case 30,,5. Date format check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,Date data.last_updated Pattern "yyyy-MM-dd HH:mm:ss"
+Case 31,,::::: Should Fail ::::: 5. Date format check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,Date data.last_updated Pattern "yyyy-MM-dd"
+Case 32,,7.1. contain check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"address.country contains ""desh""
+data.list[0].branch_name contains ""10_Y"""
+Case 33,,::::: Should Fail ::::: 7.1. contain check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,address.country contains "dhaka"
+Case 34,,7.2. startsWith check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"address.country startsWith ""Ban""
+data.list[0].branch_name startsWith ""hydra"""
+Case 35,,::::: Should Fail ::::: 7.2. startsWith check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,address.country startsWith "Bad"
+Case 36,,7.3. endsWith check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"address.country endsWith ""desh""
+data.list[0].branch_name endsWith ""10_Y"""
+Case 37,,::::: Should Fail ::::: 7.3. endsWith check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,address.country endsWith "Bang"
+Case 38,,7.4. concat check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,concat address.country&address.city&address.post_code == "BangladeshDhaka1212"
+Case 39,,::::: Should Fail ::::: 7.4. concat check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,concat address.country& address.city& address.post_code == "Bangladesh Dhaka 1212"
+Case 40,,7.5. lengthOf check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,lengthOf address.city == 5
+Case 41,,::::: Should Fail ::::: 7.5. lengthOf check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,lengthOf address.city == 10
+Case 42,,7.6. sizeOf check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,sizeOf data.list == 5
+Case 43,,::::: Should Fail ::::: 7.6. sizeOf check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,sizeOf data.list == 2
+Case 44,,"7.7. floor, ceil, round check","test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"floor lts == 1
+ceil lts == 2
+round lts == 2"
+Case 45,,"::::: Should Fail ::::: 7.7. floor, ceil, round check","test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,ceil lts == 1
+Case 46,,7.8. min max check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,"max data.list[].branch_id == 14
+min data.list[].branch_id == 10"
+Case 47,,::::: Should Fail ::::: 7.8. min max check,"test, dev, prod",https://touhidion.github.io/mockapi,/hydra_v2.json,GET,Content-Type: application/json,200,,max data.list[].branch_id == 15

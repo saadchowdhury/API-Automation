@@ -1,0 +1,27 @@
+# These are some examples of commonly ignored file patterns.
+# You should customize this list as applicable to your project.
+# Learn more about .gitignore:
+#     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+
+
+.idea/
+.gradle/
+*.iml
+*.md
+**/build/
+**/out/
+*.log
+.groovy/
+.project
+.settings/
+bin/
+logs/
+.classpath
+*.tmp
+/*.log
+**/.classpath
+**/.project
+*.class
+*/bin
+*/.settings
+.settings

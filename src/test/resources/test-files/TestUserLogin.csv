@@ -1,0 +1,9 @@
+test_case_no,description,url,http_method,header_params,query_params,request_body,response_status,validation,environments
+Case 1,Login success verification,https://reqres.in/api/login,POST,Content-Type: application/json,username: $(sample_user_name),"{
+    ""email"": ""eve.holt@reqres.in"",
+    ""password"": ""cityslicka""
+}",200,exist token,"dev , prod"
+Case 2,Login Failed verification,https://reqres.in/api/login,POST,Content-Type: application/json,username: $(sample_user_name),"{
+    ""email"": ""abcd@reqres.in"",
+    ""password"": ""cityslicka""
+}",400,,prod

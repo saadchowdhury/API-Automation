@@ -1,0 +1,8 @@
+test_case_no,ignore,description,url,endpoint,http_method,header_params,response_status,validation,request_curl
+Case 1,,Check  if id == 2,https://reqres.in/api,/users/2,GET,Content-Type: application/json,200,"exist data.id, data.id==2
+datatype data.id Integer",
+Case 2,TRUE,Check company param availability,https://reqres.in/api,/users/2,GET,Content-Type: application/json,200,"exist data.email
+datatype data.email String",
+Case 3,,Check company param datatype,https://reqres.in/api,/users,GET,Content-Type: application/json,200,exist data[].id,
+Case 4,,Check company param datatype,https://reqres.in/api,/users/2,GET,Content-Type: application/json,200,RESPONSE_LEFT data.id==RESPONSE_RIGHT data.id,curl --location  --request GET 'https://reqres.in/api/users/2' \ --header 'Content-Type:application/json'
+Case 5,,Check company param datatype,https://reqres.in/api,/users/2,GET,Content-Type: application/json,200,RESPONSE_LEFT support.url==RESPONSE_RIGHT support.url,curl --location  --request GET 'https://reqres.in/api/users/2' \ --header 'Content-Type:application/json'
